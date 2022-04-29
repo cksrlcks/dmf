@@ -6,7 +6,7 @@ import "swiper/css/effect-fade";
 
 const SlideShow = ({ menus }) => {
     const imgLists = [];
-    menus.map((menu) => {
+    menus.forEach((menu) => {
         imgLists.push(menu.thumbnailUrl);
         menu.picUrlList.length && menu.picUrlList.map((item) => imgLists.push(item));
     });

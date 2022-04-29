@@ -79,6 +79,7 @@ function App() {
                 <ScrollToTop />
                 <div id="container">
                     <Routes>
+                        <Route path="/" element={<Navigate replace to="menu" />} />
                         <Route path="menu/*" element={<Menu menus={menus} />}></Route>
                         <Route path="slideshow" element={<SlideShow menus={menus} />} />
                         <Route path="setting/*" element={<Setting menus={menus} />}></Route>
