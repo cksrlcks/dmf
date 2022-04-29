@@ -1,0 +1,305 @@
+@import "reset";
+@import "base";
+@import "color";
+@import "keyframes";
+#container {
+    height: 100%;
+}
+.app-inner {
+    padding: 1.4rem 1rem;
+}
+#gnb {
+    background: rgba(255, 255, 255, 0.8);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    padding: 1.2rem 1rem;
+    border-top: 1px solid #eee;
+    z-index: 9999;
+
+    .nav-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin: 0 10px;
+        width: 100px;
+        .icon {
+            margin-bottom: 5px;
+            font-size: 1.8rem;
+            color: #aaa;
+        }
+        .name {
+            font-size: 1.3rem;
+            color: #888;
+            letter-spacing: -0.02em;
+        }
+
+        &.active {
+            .icon {
+                color: #5c16c5;
+            }
+            .name {
+                color: #5c16c5;
+                font-weight: bold;
+            }
+        }
+    }
+}
+
+.app-header {
+    display: flex;
+    align-items: center;
+    .app-inner {
+        display: flex;
+        align-items: center;
+    }
+    .button {
+        display: flex;
+        align-items: center;
+        .back-icon {
+            width: 4rem;
+            height: 4rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .icon {
+            font-size: 1.6rem;
+        }
+        .title {
+            font-weight: bold;
+            font-size: 1.4rem;
+        }
+    }
+}
+
+.menu-list {
+    display: flex;
+    flex-wrap: wrap;
+
+    li {
+        width: calc(50% - 5px);
+        margin-right: 10px;
+        margin-bottom: 40px;
+
+        &:nth-child(2n) {
+            margin-right: 0;
+        }
+    }
+}
+.menu-item {
+    position: relative;
+    display: block;
+    .badge {
+        position: absolute;
+        left: 0;
+        top: 0;
+        right: 0;
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%;
+        padding: 0 4px;
+        .badge-item {
+            white-space: nowrap;
+            color: #fff;
+            font-size: 1.2rem;
+            z-index: 1;
+            margin: 4px 1px 4px;
+            padding: 4px;
+            &.hot {
+                background: rgb(226, 16, 16);
+            }
+            &.sold {
+                background: #888;
+            }
+            &.new {
+                background: #000;
+            }
+            &.rec {
+                background: #5c16c5;
+            }
+        }
+    }
+    .item-thumbnail {
+        padding-bottom: 100%;
+        height: 0;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        margin-bottom: 10px;
+    }
+    .item-top {
+        display: flex;
+        justify-content: space-between;
+        .right {
+            white-space: nowrap;
+        }
+    }
+    .item-category {
+        color: #5c16c5;
+        font-weight: bold;
+        font-size: 1.3rem;
+        margin-bottom: 0.4em;
+    }
+
+    .item-name {
+        color: #000;
+        font-weight: bold;
+        font-size: 1.5rem;
+        line-height: 1.2;
+        margin-bottom: 0.5em;
+    }
+
+    .item-desc {
+        color: #888;
+        font-size: 1.4rem;
+        line-height: 1.3;
+        margin-bottom: 10px;
+    }
+
+    .item-price {
+        color: #000;
+        font-size: 1.6rem;
+        letter-spacing: -0.04em;
+        font-weight: bold;
+        .unit {
+            padding-left: 0.1em;
+        }
+    }
+}
+
+.view-conatiner {
+    background: #000;
+    height: 100%;
+
+    .app-header {
+        .button {
+            color: #fff;
+        }
+        .icon {
+            color: #fff;
+        }
+    }
+
+    .slide-container {
+        width: 100%;
+        .swiper {
+            width: 100%;
+        }
+        .swiper-slide {
+            height: 50vh;
+            overflow: hidden;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        .swiper-wrapper {
+            position: fixed;
+            width: 100%;
+            top: 50%;
+            left: 0;
+            margin-top: -30vh;
+            height: 50vh;
+        }
+
+        .swiper-pagination {
+            position: fixed;
+            right: 2rem;
+            left: auto;
+            top: 3rem;
+            color: #fff;
+            height: 2em;
+            text-align: right;
+            font-size: 1.4rem;
+            font-weight: bold;
+            width: auto;
+        }
+    }
+}
+
+.slide-show {
+    width: 100%;
+    .swiper {
+        width: 100%;
+    }
+    .swiper-slide {
+        height: 50vh;
+        overflow: hidden;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+    .swiper-wrapper {
+        position: fixed;
+        width: 100%;
+        top: 50%;
+        left: 0;
+        margin-top: -30vh;
+        height: 50vh;
+        box-shadow: 0 0 50px rgba(0, 0, 0, 0.2);
+    }
+
+    .swiper-pagination {
+        position: fixed;
+        right: 2rem;
+        left: auto;
+        top: 3rem;
+        color: #fff;
+        height: 2em;
+        text-align: right;
+        font-size: 1.4rem;
+        font-weight: bold;
+        width: auto;
+    }
+}
+
+.empty {
+    height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #888;
+    font-size: 1.3rem;
+}
+
+.setting-gnb {
+    height: 60vh;
+
+    .app-inner {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
+    .item {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        height: 6rem;
+        padding: 0 2rem;
+        font-size: 1.5rem;
+        font-weight: bold;
+        border: 1px solid #eee;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        margin: 2px 0;
+        border-radius: 4px;
+        .icon {
+            margin-right: 10px;
+            font-size: 1.6rem;
+        }
+    }
+}
+.copyright {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #888;
+}

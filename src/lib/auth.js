@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext, createContext } from "react";
 import firebase from "./firebase";
-import { createUser } from "./db";
+import { createUser, getUserLevel } from "./db";
 
 const authContext = createContext();
 
@@ -16,9 +16,9 @@ export const useAuth = () => {
 function useProvideAuth() {
     const [user, setUser] = useState(null);
 
-    const handleUser = (rawUser) => {
+    const handleUser = async (rawUser) => {
         if (rawUser) {
-            const user = formatUser(rawUser);
+            const user = await formatUser(rawUser);
 
             createUser(user.uid, user);
             setUser(user);
@@ -30,9 +30,13 @@ function useProvideAuth() {
     };
 
     const signinWithGoggle = () => {
+        const customGoogleProvider = new firebase.auth.GoogleAuthProvider();
+        customGoogleProvider.setCustomParameters({
+            prompt: "select_account",
+        });
         return firebase
             .auth()
-            .signInWithPopup(new firebase.auth.GoogleAuthProvider())
+            .signInWithPopup(customGoogleProvider)
             .then((reponse) => {
                 handleUser(reponse.user);
             });
@@ -57,12 +61,14 @@ function useProvideAuth() {
     };
 }
 
-const formatUser = (user) => {
+const formatUser = async (user) => {
+    const level = await getUserLevel(user.uid);
     return {
         uid: user.uid,
         email: user.email,
         name: user.displayName,
         provider: user.providerData[0].providerId,
         photoUrl: user.photoURL,
+        level: level ? level : 5,
     };
 };
