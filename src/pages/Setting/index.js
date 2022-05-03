@@ -1,18 +1,23 @@
-import React from "react";
-import { Routes, Route } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import { useAuth } from "../../lib/auth";
 import MenuList from "./menuList";
 import Add from "./add";
 import Status from "./stauts";
 import Order from "./order";
-const Menu = ({ menus }) => {
+
+const Menu = () => {
     const auth = useAuth();
+    const navigate = useNavigate();
+    useEffect(() => {
+        if (!auth.user) navigate("/login");
+    });
     return (
         <Routes>
-            <Route path="/*" element={<MenuList menus={menus} />} />
-            <Route path="add" element={<Add menus={menus} />} />
-            <Route path="status" element={<Status menus={menus} />} />
-            <Route path="order" element={<Order menus={menus} />} />
+            <Route path="/*" element={<MenuList />} />
+            <Route path="add" element={<Add />} />
+            <Route path="status" element={<Status />} />
+            <Route path="order" element={<Order />} />
         </Routes>
     );
 };

@@ -1,10 +1,15 @@
 import React from "react";
+import AddForm from "../../components/addMenu";
 import BackHeader from "../../components/backHeader";
+import { addMenu } from "../../lib/db";
 const Add = () => {
+    const handleMenu = (data) => {
+        addMenu(data);
+    };
     return (
         <>
             <BackHeader title={"셋팅"} />
-            <div className="empty">메뉴추가페이지</div>
+            <AddForm handleMenu={handleMenu} />
         </>
     );
 };

@@ -6,11 +6,17 @@ import { AuthProvider } from "./lib/auth";
 import "remixicon/fonts/remixicon.css";
 import "./scss/style.scss";
 
+import { firebaseConfig } from "./lib/firebase";
+import { Fuego, FuegoProvider } from "@nandorojo/swr-firestore";
+const fuego = new Fuego(firebaseConfig);
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
     <React.StrictMode>
         <AuthProvider>
-            <App />
+            <FuegoProvider fuego={fuego}>
+                <App />
+            </FuegoProvider>
         </AuthProvider>
     </React.StrictMode>
 );

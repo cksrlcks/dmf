@@ -4,11 +4,11 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/effect-fade";
 
-const SlideShow = ({ menus }) => {
+const SlideShow = ({ menus, loading }) => {
     const imgLists = [];
     menus.forEach((menu) => {
         imgLists.push(menu.thumbnailUrl);
-        menu.picUrlList.length && menu.picUrlList.map((item) => imgLists.push(item));
+        menu.picUrlList && menu.picUrlList.length && menu.picUrlList.map((item) => imgLists.push(item));
     });
 
     return (

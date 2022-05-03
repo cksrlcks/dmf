@@ -39,7 +39,9 @@ function useProvideAuth() {
             .signInWithPopup(customGoogleProvider)
             .then((reponse) => {
                 handleUser(reponse.user);
-            });
+                return "success";
+            })
+            .catch((err) => err);
     };
 
     const signout = () => {

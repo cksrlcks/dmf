@@ -12,7 +12,7 @@ const MenuItem = ({ menu }) => {
                     {menu.soldOut && <span className="badge-item sold">품절</span>}
                     {menu.new && <span className="badge-item new">신상품</span>}
                 </div>
-                <div className="item-thumbnail" style={{ backgroundImage: "url(" + menu.thumbnailUrl + ")" }}></div>
+                {!menu.thumbnailUrl ? <div className="item-thumbnail no-thumb"></div> : <div className="item-thumbnail" style={{ backgroundImage: "url(" + menu.thumbnailUrl + ")" }}></div>}
                 <div className="item-namezone">
                     <div className="item-category">{menu.category}</div>
                     <div className="item-name">{menu.name}</div>
@@ -20,7 +20,7 @@ const MenuItem = ({ menu }) => {
 
                 <div className="item-desc">{menu.desc}</div>
                 <div className="item-price">
-                    {priceToString(menu.price)}
+                    {menu.price ? priceToString(menu.price) : "-"}
                     <span className="unit">원</span>
                 </div>
             </Link>

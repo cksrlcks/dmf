@@ -1,7 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { HiOutlinePlusCircle, HiOutlineLightningBolt, HiOutlineSwitchVertical } from "react-icons/hi";
+import { useAuth } from "../../lib/auth";
+import { HiOutlinePlusCircle, HiOutlineLightningBolt, HiOutlineSwitchVertical, HiLogout } from "react-icons/hi";
 const Menu = () => {
+    const auth = useAuth();
     return (
         <>
             <div className="setting-gnb">
@@ -18,8 +20,13 @@ const Menu = () => {
                         <HiOutlineSwitchVertical className="icon" />
                         <span className="name">노출 순서변경</span>
                     </Link>
+                    <button type="button" className="item" onClick={() => auth.signout()}>
+                        <HiLogout className="icon" />
+                        <span className="name">로그아웃</span>
+                    </button>
                 </div>
             </div>
+
             <div className="copyright">Dearmyfriends showpanel. Ver 1.0</div>
         </>
     );
