@@ -12,7 +12,8 @@ export async function getUserLevel(uid) {
         .collection("users")
         .doc(uid)
         .get()
-        .then((doc) => doc.data().level);
+        .then((doc) => doc.data().level)
+        .catch(err => null);
 }
 
 export function createUser(uid, data) {
@@ -37,8 +38,4 @@ export async function getCollection(name) {
 
 export function addMenu(data) {
     return firestore.collection("menus").doc(data.id).set(data, { merge: true });
-}
-
-export function uploadImage(imageAsFile) {
-    //const uploadTask = storage.ref(`/images/${imageAsFile.name}`).put(imageAsFile)
 }

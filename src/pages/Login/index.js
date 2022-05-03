@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../lib/auth";
 
 const Login = () => {
     const auth = useAuth();
     const navigate = useNavigate();
+
+    useEffect(() => {
+        if(auth.user) navigate('/setting')
+    },[auth])
 
     const handleLogin = () => {
         auth.signinWithGoggle().then((res) => {

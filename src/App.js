@@ -6,14 +6,17 @@ import Login from "./pages/Login";
 import Menu from "./pages/Menu";
 import SlideShow from "./pages/SlideShow";
 import Setting from "./pages/Setting";
-import useCollection from "./hooks/useCollection";
 
 import { HiTag, HiChip, HiPlay } from "react-icons/hi";
 import { useAuth } from "./lib/auth";
 
-const ProtectedRoute = ({ user, children }) => {
-    if (!user) {
+const ProtectedRoute = ({ auth, children }) => {
+    if (!auth.user) {
         return <Navigate to="/login" />;
+    }else if(auth.user.level > 3){
+        alert('권한이 없습니다. 로그아웃됩니다.')
+        auth.signout();
+        return <Navigate to="/menu" />;
     }
 
     return children;
@@ -21,7 +24,7 @@ const ProtectedRoute = ({ user, children }) => {
 
 function App() {
     const auth = useAuth();
-    const { data: menus = [], loading, error } = useCollection("menus");
+    
     return (
         <AppView>
             <Router>
@@ -29,12 +32,12 @@ function App() {
                 <div id="container">
                     <Routes>
                         <Route path="/" element={<Navigate replace to="menu" />} />
-                        <Route path="menu/*" element={<Menu menus={menus} loading={loading} />}></Route>
-                        <Route path="slideshow" element={<SlideShow menus={menus} loading={loading} />} />
+                        <Route path="menu/*" element={<Menu />}></Route>
+                        <Route path="slideshow" element={<SlideShow />} />
                         <Route
                             path="setting/*"
                             element={
-                                <ProtectedRoute user={auth.user}>
+                                <ProtectedRoute auth={auth}>
                                     <Setting />
                                 </ProtectedRoute>
                             }

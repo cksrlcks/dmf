@@ -4,7 +4,7 @@ import uuid from "react-uuid";
 import { database } from "firebase";
 import useCollection from "../../hooks/useCollection";
 
-const AddForm = ({ handleMenu }) => {
+const AddForm = ({ handleMenu  }) => {
     const categoryInput = useRef();
     const menuNameInput = useRef();
     const menuDescInput = useRef();
@@ -15,7 +15,6 @@ const AddForm = ({ handleMenu }) => {
     const newInput = useRef();
     const soldInput = useRef();
     const hideInput = useRef();
-    const { data, mutate } = useCollection("/users");
     const [loading, setLoading] = useState(false);
 
     const [thumbnail, setThumbnail] = useState("");
@@ -45,8 +44,8 @@ const AddForm = ({ handleMenu }) => {
             recommand: recInput.current.checked,
             soldOut: soldInput.current.checked,
             hide: hideInput.current.checked,
-        };
-        mutate({ ...data, menuData }, false);
+        };      
+
         uploadTask.on(
             "state_changed",
             (snapshot) => {},
@@ -77,7 +76,6 @@ const AddForm = ({ handleMenu }) => {
                 soldInput.current.checked = false;
                 priceInput.current.value = "";
 
-                mutate("/menus");
             }
         );
     };

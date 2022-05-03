@@ -7,13 +7,15 @@ const fetcher = async (url) => {
     return data;
 };
 
-const useCollection = () => {
-    const { data, error, mutate } = useSWR("/menus", fetcher);
+const useCollection = (url) => {
+    const { data, error, revalidate } = useSWR(url, fetcher, {
+        //revalidateOnMount : true,
+    });
     return {
         data: data,
         loading: !error && !data,
         error: error,
-        mutate: mutate,
+        revalidate
     };
 };
 
