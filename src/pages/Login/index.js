@@ -11,7 +11,7 @@ const Login = () => {
             if (res == "success") {
                 navigate("/menu");
             } else {
-                alert("로그인에 문제가 생겼습니다.");
+                //alert("로그인에 문제가 생겼습니다.");
             }
         });
     };

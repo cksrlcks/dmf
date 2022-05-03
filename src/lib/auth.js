@@ -41,7 +41,10 @@ function useProvideAuth() {
                 handleUser(reponse.user);
                 return "success";
             })
-            .catch((err) => err);
+            .catch((err) => {
+                alert('에러발생')
+                console.log(err)
+            });
     };
 
     const signout = () => {
