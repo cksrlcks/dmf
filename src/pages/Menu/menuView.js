@@ -7,7 +7,7 @@ import BackHeader from "../../components/backHeader";
 const View = ({ menus }) => {
     const { id } = useParams();
     const menuData = menus.filter((menu) => menu.id === id).shift();
-    const lists = menuData.picUrlList ? [menuData.thumbnailUrl, ...menuData.picUrlList] : [menuData.thumbnailUrl]
+    const lists = menuData.picUrlList ? [menuData.thumbnailUrl, ...menuData.picUrlList] : [menuData.thumbnailUrl];
     return (
         <div className="view-conatiner">
             <BackHeader title={"메뉴"} />

@@ -33,7 +33,9 @@ body,
 #app {
     min-height: 100vh;
     height: 100%;
+    position: relative;
+}
+.app-outer {
     margin: 0 auto;
     max-width: 768px;
-    position: relative;
 }

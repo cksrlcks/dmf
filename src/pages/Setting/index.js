@@ -13,12 +13,14 @@ const Menu = () => {
         if (!auth.user) navigate("/login");
     });
     return (
-        <Routes>
-            <Route path="/*" element={<MenuList />} />
-            <Route path="add" element={<Add />} />
-            <Route path="status" element={<Status />} />
-            <Route path="order" element={<Order />} />
-        </Routes>
+        <div className="app-outer">
+            <Routes>
+                <Route path="/*" element={<MenuList />} />
+                <Route path="add" element={<Add />} />
+                <Route path="status" element={<Status />} />
+                <Route path="order" element={<Order />} />
+            </Routes>
+        </div>
     );
 };
 

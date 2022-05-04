@@ -7,8 +7,8 @@ const Login = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        if(auth.user) navigate('/setting')
-    },[auth])
+        if (auth.user) navigate("/setting");
+    }, [auth]);
 
     const handleLogin = () => {
         auth.signinWithGoggle().then((res) => {
@@ -21,13 +21,15 @@ const Login = () => {
     };
 
     return (
-        <div className="app-inner">
-            <div className="login-form">
-                <div className="title">Dearmyfriend showpanel</div>
-                <div className="exp">로그인이 필요합니다.</div>
-                <button onClick={handleLogin} className="cm-btn">
-                    구글로 로그인 하기
-                </button>
+        <div className="app-outer">
+            <div className="app-inner">
+                <div className="login-form">
+                    <div className="title">Dearmyfriend showpanel</div>
+                    <div className="exp">로그인이 필요합니다.</div>
+                    <button onClick={handleLogin} className="cm-btn">
+                        구글로 로그인 하기
+                    </button>
+                </div>
             </div>
         </div>
     );
