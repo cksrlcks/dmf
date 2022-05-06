@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { storage } from "../../lib/db";
 
-const UpdateForm = ({ data, handleUpdate }) => {
+const UpdateForm = ({ data, handleUpdate, mutate }) => {
     const navigate = useNavigate();
     const categoryInput = useRef(data.category);
     const menuNameInput = useRef(data.name);
@@ -66,7 +66,7 @@ const UpdateForm = ({ data, handleUpdate }) => {
                                 setLoading(false);
                                 setUploadMent("");
                                 alert("성공적으로 등록했습니다.");
-                                navigate(-1);
+                                mutate("menus").then(() => navigate(-1));
                             });
                         });
                 }
@@ -94,7 +94,7 @@ const UpdateForm = ({ data, handleUpdate }) => {
                 setLoading(false);
                 setUploadMent("");
                 alert("성공적으로 등록했습니다.");
-                navigate(-1);
+                mutate("menus").then(() => navigate(-1));
             });
         }
     };

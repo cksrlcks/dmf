@@ -1,5 +1,5 @@
 import React from "react";
-import useSWR from "swr";
+import useSWR, { useSWRConfig } from "swr";
 import { getCollection } from "../lib/db";
 
 const fetcher = async (url) => {
@@ -8,17 +8,19 @@ const fetcher = async (url) => {
 };
 
 const useCollection = (url) => {
-    const { data, error, mutate, revalidate } = useSWR(url, fetcher, {
+    const { mutate } = useSWRConfig();
+    const { data, error } = useSWR(url, fetcher, {
         revalidateOnFocus: false,
         revalidateOnReconnect: false,
         dedupingInterval: 500000,
+        initialData: [],
+        revalidateOnMount: true,
     });
     return {
         data: data,
         loading: !error && !data,
         error: error,
         mutate,
-        revalidate,
     };
 };
 

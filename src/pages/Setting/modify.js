@@ -1,31 +1,31 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import BackHeader from "../../components/backHeader";
-import useCollection from "../../hooks/useCollection";
 import { ReactSortable } from "react-sortablejs";
-import { updateDocument } from "../../lib/db";
+import { setDocumentWithNumber, resetDocument } from "../../lib/db";
 
 const SortList = ({ data, mutate }) => {
     const navigate = useNavigate();
     const [sortableList, setSortableList] = useState([]);
     const [updateLoading, setUpdateLoading] = useState(false);
-
     useEffect(() => {
         setSortableList(data);
     }, [data]);
 
     const handleSave = async () => {
         setUpdateLoading(true);
-
+        await resetDocument("menus");
         const updateItem = sortableList.map(async (item, idx) => {
-            await updateDocument("menus", { ...item, number: idx + 1 });
+            await setDocumentWithNumber("menus", { ...item, number: idx + 1 });
         });
 
         await Promise.all(updateItem);
 
         setUpdateLoading(false);
         alert("성공적으로 저장했습니다.");
-        mutate();
+        mutate("menus").then(() => {
+            navigate(-1);
+        });
     };
 
     const handleDelete = (id) => {
@@ -99,8 +99,7 @@ const SortList = ({ data, mutate }) => {
         </>
     );
 };
-const Order = () => {
-    const { data, loading, error, mutate } = useCollection("menus");
+const Modify = ({ data, loading, mutate }) => {
     return (
         <>
             {loading && <div className="loading">메뉴정보를 불러오는중입니다.</div>}
@@ -109,4 +108,4 @@ const Order = () => {
     );
 };
 
-export default Order;
+export default Modify;

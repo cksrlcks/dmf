@@ -4,8 +4,7 @@ import BackHeader from "../../components/backHeader";
 import { setDocument } from "../../lib/db";
 import useCollection from "../../hooks/useCollection";
 
-const Add = () => {
-    const { mutate } = useCollection("menus");
+const Add = ({ mutate }) => {
     const handleMenu = async (data) => {
         await setDocument("menus", data);
         mutate();
@@ -13,7 +12,7 @@ const Add = () => {
     return (
         <>
             <BackHeader title={"셋팅"} />
-            <AddForm handleMenu={handleMenu} />
+            <AddForm handleMenu={handleMenu} mutate={mutate} />
         </>
     );
 };

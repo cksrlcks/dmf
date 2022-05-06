@@ -58,9 +58,26 @@ export async function setDocument(collectionId, data) {
         .set({ ...data, number: snapshot.size + 1 }, { merge: true });
 }
 
+export async function setDocumentWithNumber(collectionId, data) {
+    return firestore
+        .collection(collectionId)
+        .doc(data.id)
+        .set({ ...data });
+}
 export async function updateDocument(collectionId, data) {
     return firestore
         .collection(collectionId)
         .doc(data.id)
         .update({ ...data });
+}
+
+export async function resetDocument(collectionId) {
+    return firestore
+        .collection(collectionId)
+        .get()
+        .then((snapshot) => {
+            snapshot.docs.forEach((snapshot) => {
+                snapshot.ref.delete();
+            });
+        });
 }

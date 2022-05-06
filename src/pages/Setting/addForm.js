@@ -1,8 +1,10 @@
 import { storage } from "../../lib/db";
 import React, { useRef, useState } from "react";
 import uuid from "react-uuid";
+import { useNavigate } from "react-router-dom";
 
-const AddForm = ({ handleMenu }) => {
+const AddForm = ({ handleMenu, mutate }) => {
+    const navigate = useNavigate();
     const categoryInput = useRef();
     const menuNameInput = useRef();
     const menuDescInput = useRef();
@@ -69,12 +71,15 @@ const AddForm = ({ handleMenu }) => {
                                 menuNameInput.current.value = "";
                                 menuDescInput.current.value = "";
                                 setThumbnail("");
+                                thumbnailInput.current.value = null;
                                 newInput.current.checked = false;
                                 hotInput.current.checked = false;
                                 recInput.current.checked = false;
                                 hideInput.current.checked = false;
                                 soldInput.current.checked = false;
                                 priceInput.current.value = "";
+
+                                mutate("menus").then(() => navigate(-1));
                             });
                         });
                 }
@@ -110,6 +115,8 @@ const AddForm = ({ handleMenu }) => {
                 hideInput.current.checked = false;
                 soldInput.current.checked = false;
                 priceInput.current.value = "";
+
+                mutate("menus").then(() => navigate(-1));
             });
         }
     };
