@@ -73,8 +73,10 @@
     display: flex;
     align-items: center;
     .app-inner {
+        width: 100%;
         display: flex;
         align-items: center;
+        justify-content: space-between;
     }
     .button {
         display: flex;
@@ -338,7 +340,6 @@
 }
 
 .write-form {
-    padding: 4rem;
     .form-item {
         display: block;
         margin-bottom: 4em;
@@ -380,37 +381,44 @@
             border-radius: 3px;
         }
     }
+    .preview {
+        border: 1px solid #eee;
+        margin-bottom: 20px;
+        text-align: center;
+        img {
+            max-width: 100%;
+        }
+    }
+}
+.check-group {
+    display: flex;
+    align-items: center;
+    .check-box {
+        width: 100%;
+        margin-right: 4px;
+        &:last-child {
+            margin-right: 0;
+        }
+        .name {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #000;
+            border: 1px solid #eee;
+            border-radius: 4px;
+            height: 48px;
+            font-size: 1.4rem;
+            font-weight: bold;
+            cursor: pointer;
+            &:hover {
+                box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+            }
+        }
 
-    .check-group {
-        display: flex;
-        align-items: center;
-        .check-box {
-            width: 100%;
-            margin-right: 4px;
-            &:last-child {
-                margin-right: 0;
-            }
-            .name {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                color: #000;
-                border: 1px solid #eee;
-                border-radius: 4px;
-                height: 48px;
-                font-size: 1.4rem;
-                font-weight: bold;
-                cursor: pointer;
-                &:hover {
-                    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
-                }
-            }
-
-            input:checked ~ .name {
-                background: #16c489;
-                border-color: #16c489;
-                color: #fff;
-            }
+        input:checked ~ .name {
+            background: #16c489;
+            border-color: #16c489;
+            color: #fff;
         }
     }
 }
@@ -442,5 +450,36 @@
     .exp {
         font-size: 1.5rem;
         margin-bottom: 3em;
+    }
+}
+
+.sort-container {
+    .sort-item {
+        border: 1px solid #eee;
+        border-radius: 4px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.08);
+        margin-bottom: 4px;
+        padding: 1em;
+        font-size: 1.6rem;
+        font-weight: bold;
+        cursor: pointer;
+
+        &.sortable-gost {
+        }
+        &.sortable-chosen {
+            border-color: #5c16c5;
+            background-color: rgba(92, 22, 197, 0.05);
+        }
+    }
+
+    .action-control {
+        margin-top: 10px;
+        text-align: right;
+        button {
+            font-weight: bold;
+        }
+        button + button {
+            margin-left: 10px;
+        }
     }
 }

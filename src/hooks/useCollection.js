@@ -8,13 +8,17 @@ const fetcher = async (url) => {
 };
 
 const useCollection = (url) => {
-    const { data, error, revalidate } = useSWR(url, fetcher, {
-        //revalidateOnMount : true,
+    const { data, error, mutate, revalidate } = useSWR(url, fetcher, {
+        revalidateIfStale: false,
+        revalidateOnFocus: false,
+        revalidateOnReconnect: false,
+        dedupingInterval : 500000
     });
     return {
         data: data,
         loading: !error && !data,
         error: error,
+        mutate,
         revalidate
     };
 };

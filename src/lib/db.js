@@ -13,7 +13,7 @@ export async function getUserLevel(uid) {
         .doc(uid)
         .get()
         .then((doc) => doc.data().level)
-        .catch(err => null);
+        .catch((err) => null);
 }
 
 export function createUser(uid, data) {
@@ -23,10 +23,10 @@ export function createUser(uid, data) {
         .set({ uid, ...data }, { merge: true });
 }
 
-export async function getCollection(name) {
+export async function getCollection(collectionId) {
     const data = [];
     return firestore
-        .collection(name)
+        .collection(collectionId)
         .get()
         .then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
@@ -36,6 +36,23 @@ export async function getCollection(name) {
         });
 }
 
-export function addMenu(data) {
-    return firestore.collection("menus").doc(data.id).set(data, { merge: true });
+export async function getDocument(collectionId, documentId) {
+    return firestore
+        .collection(collectionId)
+        .doc(documentId)
+        .get()
+        .then((doc) => {
+            if (doc.exists) {
+                return doc.data();
+            }
+        })
+        .catch((err) => console.log(err));
+}
+
+export function setDocument(collectionId, documentId, data) {
+    return firestore.collection(collectionId).doc(documentId).set(data, { merge: true });
+}
+
+export function updateMenu(collectionId, documentId, data) {
+    return firestore.collection(collectionId).doc(documentId).set({ items: data }, { merge: true });
 }

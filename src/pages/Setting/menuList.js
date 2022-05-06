@@ -12,13 +12,9 @@ const Menu = () => {
                         <HiOutlinePlusCircle className="icon" />
                         <span className="name">메뉴 추가하기</span>
                     </Link>
-                    <Link to="status" className="item">
+                    <Link to="modify" className="item">
                         <HiOutlineLightningBolt className="icon" />
-                        <span className="name">메뉴 상태변경</span>
-                    </Link>
-                    <Link to="order" className="item">
-                        <HiOutlineSwitchVertical className="icon" />
-                        <span className="name">노출 순서변경</span>
+                        <span className="name">메뉴 수정하기</span>
                     </Link>
                     <button type="button" className="item" onClick={() => auth.signout()}>
                         <HiLogout className="icon" />

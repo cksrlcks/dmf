@@ -3,10 +3,10 @@ import { Autoplay, EffectFade } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/effect-fade";
-import useCollection from "../../hooks/useCollection";
+import useMenu from "../../hooks/useMenu";
 
 const SlideShow = () => {
-    const { data: menus = [], loading, error} = useCollection("menus");
+    const { data: menus, loading, error } = useMenu("menus", "default");
     const imgLists = [];
     menus.forEach((menu) => {
         imgLists.push(menu.thumbnailUrl);
