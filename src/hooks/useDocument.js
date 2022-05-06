@@ -9,9 +9,9 @@ const fetcher = async (collectionId, documentId) => {
 
 const useDocument = (collectionId, documentId) => {
     const { data, error, mutate, revalidate } = useSWR([collectionId, documentId], fetcher, {
-        revalidateIfStale: false,
-        revalidateOnFocus: false,
-        revalidateOnReconnect: false,
+        // revalidateIfStale: false,
+        // revalidateOnFocus: false,
+        // revalidateOnReconnect: false,
         dedupingInterval: 500000,
     });
     return {

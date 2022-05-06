@@ -27,58 +27,91 @@ const AddForm = ({ handleMenu }) => {
         if (!categoryInput.current.value.trim().length) return alert("카테고리명을 입력해주세요");
         if (!menuNameInput.current.value.trim().length) return alert("메뉴명을 입력해주세요");
         if (!menuDescInput.current.value.trim().length) return alert("메뉴설명을 입력해주세요");
-        if (!thumbnail) return alert("메뉴이미지를 첨부해주세요");
+        //if (!thumbnail) return alert("메뉴이미지를 첨부해주세요");
+        if (thumbnailInput.current.value) {
+            const uploadTask = storage.ref(`/images/${thumbnail.name}`).put(thumbnail);
+            setUploadMent("이미지를 서버에 저장중입니다...");
+            setLoading(true);
 
-        const uploadTask = storage.ref(`/images/${thumbnail.name}`).put(thumbnail);
-        setUploadMent("이미지를 서버에 저장중입니다...");
-        setLoading(true);
+            const menuData = {
+                id: uuid(),
+                category: categoryInput.current.value,
+                name: menuNameInput.current.value,
+                desc: menuDescInput.current.value,
+                price: priceInput.current.value,
+                hot: hotInput.current.checked,
+                new: newInput.current.checked,
+                recommand: recInput.current.checked,
+                soldOut: soldInput.current.checked,
+                hide: hideInput.current.checked,
+            };
 
-        const menuData = {
-            id: uuid(),
-            category: categoryInput.current.value,
-            name: menuNameInput.current.value,
-            desc: menuDescInput.current.value,
-            price: priceInput.current.value,
-            hot: hotInput.current.checked,
-            new: newInput.current.checked,
-            recommand: recInput.current.checked,
-            soldOut: soldInput.current.checked,
-            hide: hideInput.current.checked,
-        };
+            uploadTask.on(
+                "state_changed",
+                (snapshot) => {},
+                (err) => alert("에러가 발생했습니다."),
+                () => {
+                    storage
+                        .ref("images")
+                        .child(thumbnail.name)
+                        .getDownloadURL()
+                        .then((url) => {
+                            setUploadMent("서버에 메뉴정보를 저장중입니다.");
+                            handleMenu({
+                                ...menuData,
+                                thumbnailUrl: url,
+                            }).then(() => {
+                                setLoading(false);
+                                setUploadMent("");
+                                alert("성공적으로 등록했습니다.");
 
-        uploadTask.on(
-            "state_changed",
-            (snapshot) => {},
-            (err) => alert("에러가 발생했습니다."),
-            () => {
-                storage
-                    .ref("images")
-                    .child(thumbnail.name)
-                    .getDownloadURL()
-                    .then((url) => {
-                        setUploadMent("서버에 메뉴정보를 저장중입니다.");
-                        handleMenu({
-                            ...menuData,
-                            thumbnailUrl: url,
-                        }).then(() => {
-                            setLoading(false);
-                            setUploadMent("");
-                            alert("성공적으로 등록했습니다.");
-
-                            categoryInput.current.value = "";
-                            menuNameInput.current.value = "";
-                            menuDescInput.current.value = "";
-                            setThumbnail("");
-                            newInput.current.checked = false;
-                            hotInput.current.checked = false;
-                            recInput.current.checked = false;
-                            hideInput.current.checked = false;
-                            soldInput.current.checked = false;
-                            priceInput.current.value = "";
+                                categoryInput.current.value = "";
+                                menuNameInput.current.value = "";
+                                menuDescInput.current.value = "";
+                                setThumbnail("");
+                                newInput.current.checked = false;
+                                hotInput.current.checked = false;
+                                recInput.current.checked = false;
+                                hideInput.current.checked = false;
+                                soldInput.current.checked = false;
+                                priceInput.current.value = "";
+                            });
                         });
-                    });
-            }
-        );
+                }
+            );
+        } else {
+            setLoading(true);
+            const menuData = {
+                id: uuid(),
+                category: categoryInput.current.value,
+                name: menuNameInput.current.value,
+                desc: menuDescInput.current.value,
+                price: priceInput.current.value,
+                hot: hotInput.current.checked,
+                new: newInput.current.checked,
+                recommand: recInput.current.checked,
+                soldOut: soldInput.current.checked,
+                hide: hideInput.current.checked,
+            };
+
+            setUploadMent("서버에 메뉴정보를 저장중입니다.");
+            handleMenu(menuData).then(() => {
+                setLoading(false);
+                setUploadMent("");
+                alert("성공적으로 등록했습니다.");
+
+                categoryInput.current.value = "";
+                menuNameInput.current.value = "";
+                menuDescInput.current.value = "";
+                setThumbnail("");
+                newInput.current.checked = false;
+                hotInput.current.checked = false;
+                recInput.current.checked = false;
+                hideInput.current.checked = false;
+                soldInput.current.checked = false;
+                priceInput.current.value = "";
+            });
+        }
     };
 
     return (

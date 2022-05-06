@@ -2,21 +2,15 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import BackHeader from "../../components/backHeader";
 import UpdateForm from "./updateForm";
-import { updateMenu } from "../../lib/db";
+import useCollection from "../../hooks/useCollection";
+import { updateDocument } from "../../lib/db";
 
-const Update = ({ data, mutate }) => {
+const Update = () => {
     const { id } = useParams();
+    const { data, loading, mutate } = useCollection("menus");
     const menuData = data.find((item) => item.id === id);
     const handleUpdate = async (updatedData) => {
-        const updatedMenus = data.map((item) => {
-            if (item.id === updatedData.id) {
-                return updatedData;
-            } else {
-                return item;
-            }
-        });
-
-        await updateMenu("menus", "default", updatedMenus);
+        await updateDocument("menus", updatedData);
         mutate();
     };
     return (

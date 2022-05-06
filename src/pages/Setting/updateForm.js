@@ -24,7 +24,7 @@ const UpdateForm = ({ data, handleUpdate }) => {
         setThumbnail((prev) => image);
     };
 
-    const handleModify = () => {
+    const onModify = () => {
         if (!categoryInput.current.value.trim().length) return alert("카테고리명을 입력해주세요");
         if (!menuNameInput.current.value.trim().length) return alert("메뉴명을 입력해주세요");
         if (!menuDescInput.current.value.trim().length) return alert("메뉴설명을 입력해주세요");
@@ -89,7 +89,7 @@ const UpdateForm = ({ data, handleUpdate }) => {
 
             handleUpdate({
                 ...menuData,
-                thumbnailUrl: data.thumbnailUrl,
+                thumbnailUrl: data.thumbnailUrl ? data.thumbnailUrl : "",
             }).then(() => {
                 setLoading(false);
                 setUploadMent("");
@@ -159,7 +159,7 @@ const UpdateForm = ({ data, handleUpdate }) => {
                     <div className="label">가격</div>
                     <input type="number" defaultValue={data.price} ref={priceInput} placeholder="가격을 입력해주세요" />
                 </label>
-                <button type="button" onClick={handleModify} className="cm-btn">
+                <button type="button" onClick={onModify} className="cm-btn">
                     수정하기
                 </button>
             </div>

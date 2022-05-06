@@ -27,6 +27,7 @@ export async function getCollection(collectionId) {
     const data = [];
     return firestore
         .collection(collectionId)
+        .orderBy("number", "asc")
         .get()
         .then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
@@ -49,10 +50,17 @@ export async function getDocument(collectionId, documentId) {
         .catch((err) => console.log(err));
 }
 
-export function setDocument(collectionId, documentId, data) {
-    return firestore.collection(collectionId).doc(documentId).set(data, { merge: true });
+export async function setDocument(collectionId, data) {
+    const snapshot = await firestore.collection(collectionId).get();
+    return firestore
+        .collection(collectionId)
+        .doc(data.id)
+        .set({ ...data, number: snapshot.size + 1 }, { merge: true });
 }
 
-export function updateMenu(collectionId, documentId, data) {
-    return firestore.collection(collectionId).doc(documentId).set({ items: data }, { merge: true });
+export async function updateDocument(collectionId, data) {
+    return firestore
+        .collection(collectionId)
+        .doc(data.id)
+        .update({ ...data });
 }

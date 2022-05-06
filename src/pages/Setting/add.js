@@ -1,12 +1,13 @@
 import React from "react";
-import AddForm from "../../components/addMenu";
+import AddForm from "./addForm";
 import BackHeader from "../../components/backHeader";
-import { updateMenu } from "../../lib/db";
-import useMenu from "../../hooks/useMenu";
+import { setDocument } from "../../lib/db";
+import useCollection from "../../hooks/useCollection";
+
 const Add = () => {
-    const { data: menus, mutate } = useMenu("menus", "default");
+    const { mutate } = useCollection("menus");
     const handleMenu = async (data) => {
-        await updateMenu("menus", "default", [data, ...menus]);
+        await setDocument("menus", data);
         mutate();
     };
     return (

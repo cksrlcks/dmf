@@ -1,17 +1,21 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Autoplay, EffectFade } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/effect-fade";
-import useMenu from "../../hooks/useMenu";
+import useCollection from "../../hooks/useCollection";
 
-const SlideShow = () => {
-    const { data: menus, loading, error } = useMenu("menus", "default");
+const SwiperBox = ({ data }) => {
+    const [allDatas, setAllDatas] = useState([]);
+    useEffect(() => {
+        setAllDatas(data);
+    }, [data]);
     const imgLists = [];
-    menus.forEach((menu) => {
-        imgLists.push(menu.thumbnailUrl);
-        menu.picUrlList && menu.picUrlList.length && menu.picUrlList.map((item) => imgLists.push(item));
-    });
+    allDatas &&
+        allDatas.forEach((menu) => {
+            imgLists.push(menu.thumbnailUrl);
+            menu.picUrlList && menu.picUrlList.length && menu.picUrlList.map((item) => imgLists.push(item));
+        });
 
     return (
         <>
@@ -26,6 +30,12 @@ const SlideShow = () => {
             )}
         </>
     );
+};
+
+const SlideShow = () => {
+    const { data, loading, error } = useCollection("menus");
+
+    return <SwiperBox data={data} />;
 };
 
 export default SlideShow;
