@@ -32,7 +32,9 @@ const AddForm = ({ handleMenu, mutate }) => {
         if (!menuDescInput.current.value.trim().length) return alert("메뉴설명을 입력해주세요");
         //if (!thumbnail) return alert("메뉴이미지를 첨부해주세요");
         if (thumbnailInput.current.value) {
-            const uploadTask = storage.ref(`/images/${thumbnail.name}`).put(thumbnail);
+            const uploadTask = storage.ref(`/images/${thumbnail.name}`).put(thumbnail, {
+                cacheControl: "public,max-age=4000",
+            });
             setUploadMent("이미지를 서버에 저장중입니다...");
             setLoading(true);
 
