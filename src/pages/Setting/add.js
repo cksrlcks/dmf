@@ -4,7 +4,7 @@ import BackHeader from "../../components/backHeader";
 import { setDocument } from "../../lib/db";
 import useCollection from "../../hooks/useCollection";
 
-const Add = ({ mutate }) => {
+const Add = ({ mutate, ToastStore }) => {
     const handleMenu = async (data) => {
         await setDocument("menus", data);
         mutate();
@@ -12,7 +12,7 @@ const Add = ({ mutate }) => {
     return (
         <>
             <BackHeader title={"셋팅"} />
-            <AddForm handleMenu={handleMenu} mutate={mutate} />
+            <AddForm handleMenu={handleMenu} mutate={mutate} ToastStore={ToastStore} />
         </>
     );
 };

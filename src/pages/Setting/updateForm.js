@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { storage } from "../../lib/db";
+import { ToastsStore } from "react-toasts";
 
 const UpdateForm = ({ data, handleUpdate, mutate }) => {
     const navigate = useNavigate();
@@ -65,8 +66,10 @@ const UpdateForm = ({ data, handleUpdate, mutate }) => {
                             }).then(() => {
                                 setLoading(false);
                                 setUploadMent("");
-                                alert("성공적으로 등록했습니다.");
-                                mutate("menus").then(() => navigate(-1));
+                                mutate("menus").then(() => {
+                                    ToastsStore.success("성공적으로 등록했습니다.");
+                                    navigate(-1);
+                                });
                             });
                         });
                 }
@@ -93,14 +96,16 @@ const UpdateForm = ({ data, handleUpdate, mutate }) => {
             }).then(() => {
                 setLoading(false);
                 setUploadMent("");
-                alert("성공적으로 등록했습니다.");
-                mutate("menus").then(() => navigate(-1));
+                mutate("menus").then(() => {
+                    ToastsStore.success("성공적으로 등록했습니다.");
+                    navigate(-1);
+                });
             });
         }
     };
 
     return (
-        <div className="app-inner">
+        <div className="app-inner app-body">
             {loading && <div className="loading">{uploadMent}</div>}
             <div className="write-form">
                 <label className="form-item">

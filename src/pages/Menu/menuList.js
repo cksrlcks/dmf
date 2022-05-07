@@ -7,7 +7,7 @@ const Menu = ({ menus }) => {
                 <div className="empty">등록된 메뉴가 없습니다.</div>
             ) : (
                 <div className="app-outer">
-                    <div className="app-inner">
+                    <div className="app-inner app-body">
                         <ul className="menu-list">{menus.map((menu) => !menu.hide && <MenuItem menu={menu} key={menu.id} />)}</ul>
                     </div>
                 </div>

@@ -24,7 +24,12 @@ const SwiperBox = ({ data }) => {
             ) : (
                 <div className="slide-container slide-show">
                     <Swiper modules={[Autoplay, EffectFade]} autoplay={{ delay: 2000 }} effect={"fade"} allowTouchMove={false}>
-                        {imgLists && imgLists.map((list, idx) => <SwiperSlide key={idx} style={{ backgroundImage: "url(" + list + ")" }}></SwiperSlide>)}
+                        {imgLists &&
+                            imgLists.map((list, idx) => (
+                                <SwiperSlide key={idx} style={{ backgroundImage: "url(" + list + ")" }}>
+                                    <div className="bg-img"></div>
+                                </SwiperSlide>
+                            ))}
                     </Swiper>
                 </div>
             )}

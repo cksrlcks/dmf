@@ -2,6 +2,7 @@ import { storage } from "../../lib/db";
 import React, { useRef, useState } from "react";
 import uuid from "react-uuid";
 import { useNavigate } from "react-router-dom";
+import { ToastsStore } from "react-toasts";
 
 const AddForm = ({ handleMenu, mutate }) => {
     const navigate = useNavigate();
@@ -63,23 +64,12 @@ const AddForm = ({ handleMenu, mutate }) => {
                                 ...menuData,
                                 thumbnailUrl: url,
                             }).then(() => {
+                                setUploadMent("메뉴정보를 불러오고 있습니다.");
                                 setLoading(false);
-                                setUploadMent("");
-                                alert("성공적으로 등록했습니다.");
-
-                                categoryInput.current.value = "";
-                                menuNameInput.current.value = "";
-                                menuDescInput.current.value = "";
-                                setThumbnail("");
-                                thumbnailInput.current.value = null;
-                                newInput.current.checked = false;
-                                hotInput.current.checked = false;
-                                recInput.current.checked = false;
-                                hideInput.current.checked = false;
-                                soldInput.current.checked = false;
-                                priceInput.current.value = "";
-
-                                mutate("menus").then(() => navigate(-1));
+                                mutate("menus").then(() => {
+                                    ToastsStore.success("성공적으로 등록했습니다.");
+                                    navigate(-1);
+                                });
                             });
                         });
                 }
@@ -101,28 +91,19 @@ const AddForm = ({ handleMenu, mutate }) => {
 
             setUploadMent("서버에 메뉴정보를 저장중입니다.");
             handleMenu(menuData).then(() => {
+                setUploadMent("메뉴정보를 불러오고 있습니다.");
                 setLoading(false);
-                setUploadMent("");
-                alert("성공적으로 등록했습니다.");
 
-                categoryInput.current.value = "";
-                menuNameInput.current.value = "";
-                menuDescInput.current.value = "";
-                setThumbnail("");
-                newInput.current.checked = false;
-                hotInput.current.checked = false;
-                recInput.current.checked = false;
-                hideInput.current.checked = false;
-                soldInput.current.checked = false;
-                priceInput.current.value = "";
-
-                mutate("menus").then(() => navigate(-1));
+                mutate("menus").then(() => {
+                    ToastsStore.success("성공적으로 등록했습니다.");
+                    navigate(-1);
+                });
             });
         }
     };
 
     return (
-        <div className="app-inner">
+        <div className="app-inner app-body">
             {loading && <div className="loading">{uploadMent}</div>}
             <div className="write-form">
                 <label className="form-item">

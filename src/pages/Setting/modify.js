@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import BackHeader from "../../components/backHeader";
 import { ReactSortable } from "react-sortablejs";
 import { setDocumentWithNumber, resetDocument } from "../../lib/db";
+import { ToastsStore } from "react-toasts";
 
 const SortList = ({ data, mutate }) => {
     const navigate = useNavigate();
@@ -22,8 +23,8 @@ const SortList = ({ data, mutate }) => {
         await Promise.all(updateItem);
 
         setUpdateLoading(false);
-        alert("성공적으로 저장했습니다.");
         mutate("menus").then(() => {
+            ToastsStore.success("성공적으로 등록했습니다.");
             navigate(-1);
         });
     };
@@ -54,47 +55,52 @@ const SortList = ({ data, mutate }) => {
             <BackHeader title={"셋팅"} btnAction={handleSave} actionName={"저장하기"} />
             {updateLoading && <div className="loading">저장중입니다.</div>}
             {sortableList && (
-                <ReactSortable list={sortableList} setList={setSortableList} className="sort-container">
-                    {sortableList.map((item) => (
-                        <div className="sort-item" key={item.id}>
-                            <div className="title">{item.name}</div>
-                            <div className="control">
-                                <div className="status-control">
-                                    <div className="check-group">
-                                        <label className="check-box">
-                                            <input type="checkbox" defaultChecked={item.new} onClick={(e) => handleToggle(e, item.id, "new")} />
-                                            <span className="name">신규</span>
-                                        </label>
-                                        <label className="check-box">
-                                            <input type="checkbox" defaultChecked={item.hot} onClick={(e) => handleToggle(e, item.id, "hot")} />
-                                            <span className="name">인기</span>
-                                        </label>
-                                        <label className="check-box">
-                                            <input type="checkbox" defaultChecked={item.recommand} onClick={(e) => handleToggle(e, item.id, "recommand")} />
-                                            <span className="name">추천</span>
-                                        </label>
-                                        <label className="check-box">
-                                            <input type="checkbox" defaultChecked={item.soldOut} onClick={(e) => handleToggle(e, item.id, "soldOut")} />
-                                            <span className="name">품절</span>
-                                        </label>
-                                        <label className="check-box">
-                                            <input type="checkbox" defaultChecked={item.hide} onClick={(e) => handleToggle(e, item.id, "hide")} />
-                                            <span className="name">가리기</span>
-                                        </label>
+                <div className="app-inner app-body">
+                    <ReactSortable list={sortableList} setList={setSortableList} className="sort-container">
+                        {sortableList.map((item) => (
+                            <div className="sort-item" key={item.id}>
+                                <div className="info">
+                                    <div className="category">{item.category}</div>
+                                    <div className="title">{item.name}</div>
+                                </div>
+                                <div className="control">
+                                    <div className="status-control">
+                                        <div className="check-group">
+                                            <label className="check-box">
+                                                <input type="checkbox" defaultChecked={item.new} onClick={(e) => handleToggle(e, item.id, "new")} />
+                                                <span className="name">신규</span>
+                                            </label>
+                                            <label className="check-box">
+                                                <input type="checkbox" defaultChecked={item.hot} onClick={(e) => handleToggle(e, item.id, "hot")} />
+                                                <span className="name">인기</span>
+                                            </label>
+                                            <label className="check-box">
+                                                <input type="checkbox" defaultChecked={item.recommand} onClick={(e) => handleToggle(e, item.id, "recommand")} />
+                                                <span className="name">추천</span>
+                                            </label>
+                                            <label className="check-box">
+                                                <input type="checkbox" defaultChecked={item.soldOut} onClick={(e) => handleToggle(e, item.id, "soldOut")} />
+                                                <span className="name">품절</span>
+                                            </label>
+                                            <label className="check-box">
+                                                <input type="checkbox" defaultChecked={item.hide} onClick={(e) => handleToggle(e, item.id, "hide")} />
+                                                <span className="name">가리기</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div className="action-control">
+                                        <button type="button" onClick={() => goToModify(item)}>
+                                            수정
+                                        </button>
+                                        <button type="button" onClick={() => handleDelete(item.id)}>
+                                            삭제
+                                        </button>
                                     </div>
                                 </div>
-                                <div className="action-control">
-                                    <button type="button" onClick={() => goToModify(item)}>
-                                        수정
-                                    </button>
-                                    <button type="button" onClick={() => handleDelete(item.id)}>
-                                        삭제
-                                    </button>
-                                </div>
                             </div>
-                        </div>
-                    ))}
-                </ReactSortable>
+                        ))}
+                    </ReactSortable>
+                </div>
             )}
         </>
     );
