@@ -132,7 +132,7 @@
     .badge {
         position: absolute;
         left: 0;
-        top: 0;
+        top: 4px;
         right: 0;
         display: flex;
         flex-wrap: wrap;
@@ -144,7 +144,7 @@
             font-size: 1.4rem;
             font-weight: bold;
             z-index: 1;
-            margin: 4px 1px 4px;
+            margin: 2px 1px 0px;
             padding: 6px 8px;
             border-radius: 3px;
             &.hot {
@@ -314,8 +314,10 @@
             z-index: 1;
             background: inherit;
             background-size: cover;
-            -webkit-filter: blur(16px);
-            filter: blur(16px);
+            background-position: center;
+            background-repeat: no-repeat;
+            -webkit-filter: blur(7px);
+            filter: blur(7px);
         }
     }
     .swiper-wrapper {
