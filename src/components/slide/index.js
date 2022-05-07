@@ -15,9 +15,7 @@ const Slide = ({ urlLists }) => {
     // }, [urlLists]);
     return (
         <div className="slide-container">
-            <Swiper modules={[Pagination, Autoplay]} spaceBetween={10} pagination={{ type: "fraction" }} autoplay={{ delay: 2000 }} loop={true}>
-                {urlLists && urlLists.map((list, idx) => <SwiperSlide key={idx} style={{ backgroundImage: "url(" + list + ")" }}></SwiperSlide>)}
-            </Swiper>
+            {urlLists && urlLists.map((list, idx) => <div className="menu-detail" key={idx} style={{ backgroundImage: "url(" + list + ")" }}></div>)}
         </div>
     );
 };
