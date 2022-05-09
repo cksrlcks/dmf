@@ -10,6 +10,9 @@ const SwiperBox = ({ data }) => {
     useEffect(() => {
         setAllDatas(data);
     }, [data]);
+    function shuffle(array) {
+        return array.sort(() => Math.random() - 0.5);
+    }
     const imgLists = [];
     allDatas &&
         allDatas.forEach((menu) => {
@@ -25,7 +28,8 @@ const SwiperBox = ({ data }) => {
                 <div className="slide-container slide-show">
                     <Swiper modules={[Autoplay, EffectFade]} autoplay={{ delay: 2000 }} effect={"fade"} allowTouchMove={false}>
                         {imgLists &&
-                            imgLists.map((list, idx) => (
+                            imgLists.length &&
+                            shuffle(imgLists).map((list, idx) => (
                                 <SwiperSlide key={idx} style={{ backgroundImage: "url(" + list + ")" }}>
                                     <div className="bg-img"></div>
                                 </SwiperSlide>
