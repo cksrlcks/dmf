@@ -1,7 +1,7 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import MenuList from "./menuList";
-import View from "./menuView";
+import MenuList from "../../pages/MenuList";
+import MenuView from "../../pages/MenuView";
 import useCollection from "../../hooks/useCollection";
 
 const Menu = () => {
@@ -12,7 +12,7 @@ const Menu = () => {
         return (
             <Routes>
                 <Route path="/*" element={<MenuList menus={menus} />} />
-                <Route path=":id" element={<View menus={menus} />} />
+                <Route path=":id" element={<MenuView menus={menus} />} />
             </Routes>
         );
     }

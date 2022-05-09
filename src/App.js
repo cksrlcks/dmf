@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Route, Routes, NavLink, Navigate } from "react-router-dom";
 import ScrollToTop from "./components/scrollTop";
-import AppView from "./Layout/appView";
-import Login from "./pages/Login";
-import Menu from "./pages/Menu";
-import SlideShow from "./pages/SlideShow";
-import Setting from "./pages/Setting";
+import Login from "./layouts/Login";
+import Menu from "./layouts/Menu";
+import SlideShow from "./layouts/Show";
+import Setting from "./layouts/Setting";
 
 import { HiTag, HiChip, HiPlay } from "react-icons/hi";
 import { useAuth } from "./lib/auth";
@@ -27,7 +26,7 @@ function App() {
     const auth = useAuth();
 
     return (
-        <AppView>
+        <div id="app">
             <Router>
                 <ScrollToTop />
                 <div id="container">
@@ -62,7 +61,7 @@ function App() {
                 </nav>
             </Router>
             <ToastsContainer store={ToastsStore} position={ToastsContainerPosition.TOP_CENTER} />
-        </AppView>
+        </div>
     );
 }
 

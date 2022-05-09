@@ -1,7 +1,7 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import BackHeader from "../../components/backHeader";
-import UpdateForm from "./updateForm";
+import UpdateForm from "./modifyForm";
 import { updateDocument } from "../../lib/db";
 
 const Update = ({ data, mutate, loading }) => {
